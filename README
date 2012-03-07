@@ -1,5 +1,5 @@
 This shader project was developed using the GLman platform.
-You can get this software from http://web.engr.oregonstate.edu/~mjb/glman/
+You can get this software from http://cs.oregonstate.edu/~mjb/glman/
 
 This is my final project for CS 419-Shaders at Oregon State University.
 The purpose of this set of shaders is to dynamically create textures for anywhere a texture might be used (web, photoshop, etc).
