@@ -6,16 +6,16 @@ uniform bool      u_flat;
 uniform sampler3D Noise3;
 
 flat in vec3 vNf;
-	 in vec3 vNs;
+     in vec3 vNs;
 flat in vec3 vLf;
-	 in vec3 vLs;
+     in vec3 vLs;
 flat in vec3 vEf;
-	 in vec3 vEs;
+     in vec3 vEs;
 
 flat in vec3 vPVf;
-	 in vec3 vPVs;
-	 in vec3 MCposition;
-	 in vec2 vST;
+     in vec3 vPVs;
+     in vec3 MCposition;
+     in vec2 vST;
 
 layout(location=0) out vec4 fFragColor;
 

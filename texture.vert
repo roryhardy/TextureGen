@@ -5,23 +5,23 @@ uniform vec4  surface_color, specular_color;
 uniform bool  u_flat;
 
 flat out vec3 vNf;
-	 out vec3 vNs;
+     out vec3 vNs;
 flat out vec3 vLf;
-	 out vec3 vLs;
+     out vec3 vLs;
 flat out vec3 vEf;
-	 out vec3 vEs;
+     out vec3 vEs;
 flat out vec3 vPVf;
-	 out vec3 vPVs;
+     out vec3 vPVs;
 	 
 out vec3 MCposition;
 out vec2 vST;
 
 void main(){ 
-	vST  = gl_MultiTexCoord0.st;
+	vST = gl_MultiTexCoord0.st;
 	
-	MCposition   = gl_Vertex.xyz;
+	MCposition = gl_Vertex.xyz;
 
-	vec4 ECposition = uModelViewMatrix * vec4(MCposition, 1.);
+	vec4 ECposition       = uModelViewMatrix * vec4(MCposition, 1.);
 	vec3 eyeLightPosition = vec3(light_x, light_y, light_z);
 
 // Normal Calc
