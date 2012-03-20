@@ -1,8 +1,9 @@
 #version 330 compatibility
 
-uniform float     ambient, diffuse, spectral, surface_noise_amp, surface_noise_freq, shininess;
+uniform float     ambient, diffuse, spectral, surface_noise_amp, surface_noise_freq, shininess, map_freq, picture_blend;
 uniform vec4      specular_color, surface_color;
-uniform bool      u_flat;
+uniform bool      display_pictures;
+uniform sampler2D tex_unit, tex_unit2;
 uniform sampler3D Noise3;
 
 flat in vec3 vNf;
@@ -26,38 +27,53 @@ void main(){
 	vec3 Normal;
 	vec3 Light;
 	vec3 Eye;
-	vec3 my_color;
-
-	my_color = surface_color.rgb;
+	vec4 my_color;
+	float  s = vST.s;
+	float  t = vST.t;
 	
+// Texture
+	//////////////////////////////////////////////////////////////////////////
+	// IMPORTANT NOTE: 														//
+	//																		//
+	// Windows 32-bit BMP Texture channel format is [ A8 R8 G8 B8 ]. 		//
+	// The GLSL vector swizzle mask is .rgba, so we use .r for channel A8,	//
+	// and .gba for channels R8 G8 B8. Just a heads up.						//
+	//////////////////////////////////////////////////////////////////////////
+	
+	vec2 stf      = vec2(fract(s * map_freq), fract(t * map_freq));
+	vec4 tex_col;
+	tex_col.argb = texture2D(tex_unit, stf).rgba;
+	vec4 tex_col2;
+	tex_col2.argb = texture2D(tex_unit2, stf).rgba;
+	if(display_pictures)
+		my_color = mix(tex_col, tex_col2, picture_blend);
+	else
+		my_color = surface_color.rgba;
+
+// End Texture
+
 // Noise
 	vec4 nvx      = texture3D(Noise3, surface_noise_freq * MCposition);
 	vec4 nvy      = texture3D(Noise3, surface_noise_freq * vec3(MCposition.xy, MCposition.z + 0.5));
 	float noise_x = CalcNoise(nvx, surface_noise_amp);
 	float noise_y = CalcNoise(nvy, surface_noise_amp);
 // End Noise
-	
-	if(u_flat){
-		Normal = RotateNormal(noise_x, noise_y, vNf);
-		Light  = normalize(vLf);
-		Eye    = normalize(vEf);
-	}else{
-		Normal = RotateNormal(noise_x, noise_y, vNs);
-		Light  = normalize(vLs);
-		Eye    = normalize(vEs);
-	}
-	
+
+	Normal = RotateNormal(noise_x, noise_y, vNs);
+	Light  = normalize(vLs);
+	Eye    = normalize(vEs);
+
 	vec4 ambient = vec4(ambient * my_color.rgb, 1.);
 
 	float d      = max(dot(Normal, Light), 0.);
 	vec4 diffuse = vec4(diffuse * d * my_color.rgb, 1.);
 
-	float s = 0.;
+	float spec = 0.;
 	if(dot(Normal, Light) > 0.){					// only do specular if the light can see the point
 		vec3 ref = normalize(2. * Normal * dot(Normal, Light) - Light);
-		s        = pow(max(dot(Eye, ref),0.), shininess);
+		spec        = pow(max(dot(Eye, ref),0.), shininess);
 	}
-	vec4 specular = spectral * s * specular_color;
+	vec4 specular = spectral * spec * specular_color;
 
 	fFragColor = vec4(ambient.rgb + diffuse.rgb + specular.rgb, 1.);
 }

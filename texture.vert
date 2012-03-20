@@ -2,7 +2,6 @@
 
 uniform float ambient, diffuse, spectral, shininess, light_x, light_y, light_z;
 uniform vec4  surface_color, specular_color;
-uniform bool  u_flat;
 
 flat out vec3 vNf;
      out vec3 vNs;
@@ -41,15 +40,10 @@ void main(){
 	vec3 Light;
 	vec3 Eye;
 		
-	if(u_flat){
-		Normal = normalize(vNf);
-		Light  = normalize(vLf);
-		Eye    = normalize(vEf);
-	}else{
-		Normal = normalize(vNs);
-		Light  = normalize(vLs);
-		Eye    = normalize(vEs);
-	}
+
+	Normal = normalize(vNs);
+	Light  = normalize(vLs);
+	Eye    = normalize(vEs);
 
 	vec4 ambient = ambient * surface_color;
 
