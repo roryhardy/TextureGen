@@ -4,9 +4,14 @@ GSTAP
 
 Texture2D 6 G1.bmp
 Texture2D 5 G2.bmp
+Texture2D 4 1024 1024
 
-Perspective 70
+RenderToTexture 4
+
+Ortho -1.5 1.5 -1.5 1.5
 LookAt 0 0 3  0 0 0  0 1 0
+
+Clear
 
 Vertex   texture.vert
 Fragment texture.frag
@@ -15,18 +20,34 @@ Program  Texturize									\
 	map_freq           <0.1 1. 20.>					\
 	picture_blend      <0. 0.5 1.>					\
     shininess          <3. 10. 1000.>				\
-    surface_noise_amp  <0. 3.23. 10.>				\
-    surface_noise_freq <0.1 1.91. 50.>				\
+    surface_noise_amp  <0. 10. 15.>					\
+    surface_noise_freq <0.1 2.06 50.>				\
     ambient            <0. 0.35 1.0>				\
     diffuse            <0. 0.6 1.0>					\
     spectral           <0. 0.3 1.0>					\
     light_x            <-20. 0. 20.> 				\
     light_y            <-20. 0. 20.> 				\
     light_z            <-20. 20. 20.>				\
-    surface_color      {0.28 0.67 0.69. 1.}			\
+    surface_color      {0.28 0.67 0.69 1.}			\
     specular_color     {0.59 1. 0.44 1.}			\
 	tex_unit            6							\
 	tex_unit2           5
+
+Translate 1.  1.
+QuadXY  1  1.5  60 60
+
+RenderToTexture
+
+Ortho -1.5 1.5 -1.5 1.5
+LookAt 0 0 3  0 0 0  0 1 0
+
+Clear
+
+Vertex   repeat.vert
+Fragment repeat.frag
+Program  Repeat					\
+	edge_offset <0. .05 0.5>	\
+	TexUnit 4
 
 Translate 1.  1.
 QuadXY  1  1.5  60 60
