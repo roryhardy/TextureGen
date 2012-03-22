@@ -46,8 +46,9 @@ Clear
 Vertex   repeat.vert
 Fragment repeat.frag
 Program  Repeat					\
+	blendless    <false>		\
 	edge_offset <0. .05 0.5>	\
-	TexUnit 4
+	TexUnit     4
 
 Translate 1.  1.
 QuadXY  1  1.5  100 100

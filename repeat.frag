@@ -1,6 +1,7 @@
 #version 330 compatibility
 
 uniform float edge_offset;
+uniform bool  blendless;
 uniform sampler2D TexUnit;
 
 in vec2 vST;
@@ -10,19 +11,36 @@ vec3 get_rgbs(vec2 st);
 void main() {
 	float u;
 	vec3 rgb;
-	vec2 stp = vec2(vST.s, 1. - vST.t);
+	vec2 stp;
+	
+	if(blendless){ // The original scene is in Quadrant II
+		if(vST.s > 0.5 && vST.t >= 0.5){					// Quadrant I
+			stp = vec2(2. * (1 - vST.s), 2 * vST.t);
+			rgb = texture2D(TexUnit, stp).rgb;
+		}else if(vST.s <= 0.5 && vST.t >= 0.5){				// Quadrant II
+			stp = vec2(2. * vST.s, 2. * vST.t);
+			rgb = texture2D(TexUnit, stp).rgb;
+		}else if(vST.s <= 0.5 && vST.t <= 0.5){				// Quadrant III
+			stp = vec2(2. * vST.s, 2. * (1 - vST.t));
+			rgb = texture2D(TexUnit, stp).rgb;
+		}else if(vST.s >= 0.5 && vST.t <= 0.5){				// Quadrant IV
+			stp = vec2(2 * (1 - vST.s), 2 * (1 - vST.t));
+			rgb = texture2D(TexUnit, stp).rgb;
+		}
+	}else{
+		stp = vec2(vST.s, 1. - vST.t);
+		vec3 c = get_rgbs(vST);
+		vec3 cp = get_rgbs(stp);
 
-	vec3 c = get_rgbs(vST);
-	vec3 cp = get_rgbs(stp);
-
-	if (vST.t <= edge_offset) {
-		u = .5 + .5 * vST.t / edge_offset;
-		rgb = u * c + (1. - u) * cp;
-	} else if (vST.t >= 1. - edge_offset) {
-		u = .5 * (vST.t - 1. + edge_offset) / edge_offset;
-		rgb = u * cp + (1. - u) * c;
-	} else
-		rgb = c;
+		if (vST.t <= edge_offset) {
+			u = .5 + .5 * vST.t / edge_offset;
+			rgb = u * c + (1. - u) * cp;
+		} else if (vST.t >= 1. - edge_offset) {
+			u = .5 * (vST.t - 1. + edge_offset) / edge_offset;
+			rgb = u * cp + (1. - u) * c;
+		} else
+			rgb = c;
+	}
 
 	gl_FragColor = vec4(rgb, 1.);
 }
