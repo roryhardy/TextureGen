@@ -10,6 +10,6 @@ This texture generator currently has 2 methods of making an image repeatable whi
 
 You can adjust all aspects of the lighting including color and position. You can also effect the shininess factor of the surface normals.
 
-When you create a hard copy be sure to set the y resolution to 580! The rendered texture is a 580x580 pixel image.
+When you create a hardcopy be sure to set the y resolution to 580! The rendered texture is a 580x580 pixel image. If you want it smaller you'll need to scale it down!
 
 Enjoy and Happy Texturing!!!
