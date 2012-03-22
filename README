@@ -4,14 +4,9 @@ You can get this software from http://cs.oregonstate.edu/~mjb/glman/
 This is my final project for CS 419-Shaders at Oregon State University.
 The purpose of this set of shaders is to dynamically create textures for anywhere a texture might be used (web, photoshop, etc).
 
-Currently this texture generator can optionally blend two images together (G1.bmp & G2.bmp) with handles in place for BMP alpha channels.
-The image files are not required, though GLman will complain if the files are not present.  There is a checkbox to display images or not.
-It is acceptable to simply have a solid surface color which is controllable.  I have supplied two example BMP images with alpha channels to show how
-blending could be used.  You do not have to put credits along with textures you generate, but please do not use the GG logo in any final renders.
-Alpha channels are not required but if you use this with GLman a bitmap image is required!
+Currently this texture generator can optionally blend two images together (G1.bmp & G2.bmp) with handles in place for BMP alpha channels. The image files are not required, though GLman will complain if the files are not present.  There is a checkbox to display images or not.  It is acceptable to simply have a solid surface color which is controllable.  I have supplied two example BMP images with alpha channels to show how blending could be used.  You do not have to put credits along with textures you generate, but please do not use the GG logo in any final renders.  Alpha channels are not required but if you use this with GLman a bitmap image is required!
 
-This texture generator currently has 2 methods of making an image repeatable which you can control in the Repeat program.
-It can blend all the edges together or flip the images into 4 quadrants.
+This texture generator currently has 2 methods of making an image repeatable which you can control in the Repeat program.  It can blend all the edges together or flip the images into 4 quadrants.
 
 You can adjust all aspects of the lighting including color and position.  You can also effect the shininess factor of the surface normals.
 
