@@ -19,7 +19,7 @@ Program  Texturize									\
 	display_pictures   <true>						\
 	map_freq           <0.1 1. 20.>					\
 	picture_blend      <0. 0.5 1.>					\
-    shininess          <3. 10. 1000.>				\
+    shininess          <3. 10. 100.>				\
     surface_noise_amp  <0. 10. 15.>					\
     surface_noise_freq <0.1 2.06 50.>				\
     ambient            <0. 0.35 1.0>				\
