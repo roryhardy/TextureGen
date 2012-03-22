@@ -1,7 +1,7 @@
 #version 330 compatibility
 
 uniform float edge_offset;
-uniform bool  blendless;
+uniform bool blendless;
 uniform sampler2D TexUnit;
 
 in vec2 vST;
@@ -12,22 +12,22 @@ void main() {
 	float u;
 	vec3 rgb;
 	vec2 stp;
-	
-	if(blendless){ // The original scene is in Quadrant II
-		if(vST.s > 0.5 && vST.t >= 0.5){					// Quadrant I
+
+	if (blendless) {									// The original scene is in Quadrant II
+		if (vST.s > 0.5 && vST.t >= 0.5) {				// Quadrant I
 			stp = vec2(2. * (1 - vST.s), 2 * vST.t);
 			rgb = texture2D(TexUnit, stp).rgb;
-		}else if(vST.s <= 0.5 && vST.t >= 0.5){				// Quadrant II
+		} else if (vST.s <= 0.5 && vST.t >= 0.5) {		// Quadrant II
 			stp = vec2(2. * vST.s, 2. * vST.t);
 			rgb = texture2D(TexUnit, stp).rgb;
-		}else if(vST.s <= 0.5 && vST.t <= 0.5){				// Quadrant III
+		} else if (vST.s <= 0.5 && vST.t <= 0.5) {		// Quadrant III
 			stp = vec2(2. * vST.s, 2. * (1 - vST.t));
 			rgb = texture2D(TexUnit, stp).rgb;
-		}else if(vST.s >= 0.5 && vST.t <= 0.5){				// Quadrant IV
+		} else if (vST.s >= 0.5 && vST.t <= 0.5) {		// Quadrant IV
 			stp = vec2(2 * (1 - vST.s), 2 * (1 - vST.t));
 			rgb = texture2D(TexUnit, stp).rgb;
 		}
-	}else{
+	} else {
 		stp = vec2(vST.s, 1. - vST.t);
 		vec3 c = get_rgbs(vST);
 		vec3 cp = get_rgbs(stp);
