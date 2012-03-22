@@ -40,10 +40,12 @@ void main() {
 	// and .gba for channels R8 G8 B8. Just a heads up.                     //
 	//////////////////////////////////////////////////////////////////////////
 
-	vec2 stf = vec2(fract(s * map_freq), fract(t * map_freq));
 	vec4 tex_col;
-	tex_col.argb = texture2D(tex_unit, stf).rgba;
 	vec4 tex_col2;
+
+	vec2 stf = vec2(fract(s * map_freq), fract(t * map_freq));
+	tex_col.argb = texture2D(tex_unit, stf).rgba;
+
 	tex_col2.argb = texture2D(tex_unit2, stf).rgba;
 	if (display_pictures)
 		my_color = mix(tex_col, tex_col2, picture_blend);
