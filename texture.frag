@@ -1,7 +1,7 @@
 #version 330 compatibility
 
-uniform float ambient, diffuse, spectral, surface_noise_amp,
-		surface_noise_freq, shininess, map_freq, picture_blend;
+uniform float ambient, diffuse, spectral, surface_noise_amp, surface_noise_freq,
+		shininess, map_freq, picture_blend;
 uniform vec4 specular_color, surface_color;
 uniform bool display_pictures;
 uniform sampler2D tex_unit, tex_unit2;
@@ -13,7 +13,6 @@ flat in vec3 vLf;
      in vec3 vLs;
 flat in vec3 vEf;
      in vec3 vEs;
-
 flat in vec3 vPVf;
      in vec3 vPVs;
      in vec3 MCposition;
@@ -34,11 +33,11 @@ void main() {
 
 // Texture
 	//////////////////////////////////////////////////////////////////////////
-	// IMPORTANT NOTE: 														//
-	//																		//
-	// Windows 32-bit BMP Texture channel format is [ A8 R8 G8 B8 ]. 		//
-	// The GLSL vector swizzle mask is .rgba, so we use .r for channel A8,	//
-	// and .gba for channels R8 G8 B8. Just a heads up.						//
+	// IMPORTANT NOTE:                                                      //
+	//                                                                      //
+	// Windows 32-bit BMP Texture channel format is [ A8 R8 G8 B8 ].        //
+	// The GLSL vector swizzle mask is .rgba, so we use .r for channel A8,  //
+	// and .gba for channels R8 G8 B8. Just a heads up.                     //
 	//////////////////////////////////////////////////////////////////////////
 
 	vec2 stf = vec2(fract(s * map_freq), fract(t * map_freq));
@@ -55,8 +54,8 @@ void main() {
 
 // Noise
 	vec4 nvx = texture3D(Noise3, surface_noise_freq * MCposition);
-	vec4 nvy = texture3D(Noise3, surface_noise_freq * vec3(MCposition.xy,
-			MCposition.z + 0.5));
+	vec4 nvy = texture3D(Noise3,
+			surface_noise_freq * vec3(MCposition.xy, MCposition.z + 0.5));
 	float noise_x = CalcNoise(nvx, surface_noise_amp);
 	float noise_y = CalcNoise(nvy, surface_noise_amp);
 // End Noise

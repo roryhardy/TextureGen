@@ -34,7 +34,7 @@ Program  Texturize									\
 	tex_unit2           5
 
 Translate 1.  1.
-QuadXY  1  1.5  60 60
+QuadXY  1  1.5  100 100
 
 RenderToTexture
 
@@ -50,4 +50,4 @@ Program  Repeat					\
 	TexUnit 4
 
 Translate 1.  1.
-QuadXY  1  1.5  60 60
+QuadXY  1  1.5  100 100

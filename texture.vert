@@ -11,11 +11,14 @@ flat out vec3 vEf;
      out vec3 vEs;
 flat out vec3 vPVf;
      out vec3 vPVs;
-
-out vec3 MCposition;
-out vec2 vST;
+     out vec3 MCposition;
+     out vec2 vST;
 
 void main() {
+	vec3 Normal;
+	vec3 Light;
+	vec3 Eye;
+
 	vST = gl_MultiTexCoord0.st;
 
 	MCposition = gl_Vertex.xyz;
@@ -34,10 +37,6 @@ void main() {
 	vLf = vLs;
 	vEs = vec3(0., 0., 0.) - ECposition.xyz; // vector from the point
 	vEf = vEs;
-
-	vec3 Normal;
-	vec3 Light;
-	vec3 Eye;
 
 	Normal = normalize(vNs);
 	Light = normalize(vLs);
